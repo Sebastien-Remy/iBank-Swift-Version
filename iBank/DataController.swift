@@ -7,13 +7,20 @@
 
 import CoreData
 
+enum SelectionItem {
+    case account, category, third, project
+}
+
 class DataController: ObservableObject {
     
     let container = NSPersistentContainer(name: "iBank") // must match the name in model!
     var saveTask: Task<Void, Error>?
     
-    @Published var selectedAccount: Account?
-    @Published var selectedCategory: Category?
+    @Published var currentSelection: SelectionItem?
+    @Published var selectedAccount: Account? { didSet { currentSelection = .account } }
+    @Published var selectedCategory: Category? { didSet { currentSelection = .category } }
+    @Published var selectedThird: Third? { didSet { currentSelection = .third } }
+    @Published var selectedProject: Project? { didSet { currentSelection = .project } }
     
     
     init() {
