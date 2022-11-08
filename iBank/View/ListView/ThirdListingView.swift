@@ -23,7 +23,7 @@ struct ThirdListingView: View {
                 Button(action: add, label: { Image(systemName: "plus")})
             }
             .padding([.leading, .trailing])
-            List(thirds, selection: $dataController.selectedCategory) { third in
+            List(thirds, selection: $dataController.selectedThird) { third in
                 Text(third.thirdName)
                     .tag(third)
             }
