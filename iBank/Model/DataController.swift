@@ -6,7 +6,6 @@
 //
 
 import CoreData
-
 enum SelectionItem {
     case account, category, third, project
 }
@@ -20,11 +19,12 @@ class DataController: ObservableObject {
     @Published var selectedAccount: Account? {
         didSet {
             if currentSelection != .account && selectedAccount != nil {
-                selectedCategory = nil
-                selectedThird = nil
-                selectedProject = nil
-                currentSelection = .account }
-            
+                    selectedCategory = nil
+                    selectedThird = nil
+                    selectedProject = nil
+                    currentSelection = .account
+                    
+                }
         }
     }
     @Published var selectedCategory: Category? {
