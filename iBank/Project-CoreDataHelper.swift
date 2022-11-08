@@ -6,8 +6,16 @@
 //
 
 import Foundation
+import CoreData
 
 extension Project {
+    
+    convenience init(context: NSManagedObjectContext,
+                     name: String) {
+        self.init(context: context)
+        self.name = name
+    }
+    
     var projectName: String {
         get { name ?? "" }
         set {

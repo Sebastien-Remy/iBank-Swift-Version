@@ -6,8 +6,16 @@
 //
 
 import Foundation
+import CoreData
 
 extension Third {
+    
+    convenience init(context: NSManagedObjectContext,
+                     name: String) {
+        self.init(context: context)
+        self.name = name
+    }
+    
     var thirdName: String {
         get { name ?? "" }
         set {

@@ -6,8 +6,16 @@
 //
 
 import Foundation
+import CoreData
 
 extension Category {
+    
+    convenience init(context: NSManagedObjectContext,
+                     name: String) {
+        self.init(context: context)
+        self.name = name
+    }
+    
     var categoryName: String {
         get { name ?? "" }
         set {
