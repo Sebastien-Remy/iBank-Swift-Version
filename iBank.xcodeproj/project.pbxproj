@@ -88,14 +88,8 @@
 				966611C0291AC3CD00A1E7D9 /* Third-CoreDataHelpers.swift */,
 				966611C2291AC3E100A1E7D9 /* Project-CoreDataHelper.swift */,
 				966611A2291A537400A1E7D9 /* ContentView.swift */,
-				966611B6291A5A5100A1E7D9 /* AccountListingView.swift */,
-				966611BE291ABCDA00A1E7D9 /* CategoryListingView.swift */,
-				966611C4291AC44600A1E7D9 /* ThirdListingView.swift */,
-				966611C6291AC45400A1E7D9 /* ProjectListingView.swift */,
-				966611BA291A5AF400A1E7D9 /* AccountDetailView.swift */,
-				966611C8291AC60100A1E7D9 /* CategoryDetailView.swift */,
-				966611CA291AC71100A1E7D9 /* ThirdDetailView.swift */,
-				966611CC291AC7BF00A1E7D9 /* ProjectDetailView.swift */,
+				966611CE291ACA1100A1E7D9 /* ListView */,
+				966611CF291ACA1F00A1E7D9 /* DetailView */,
 				966611A4291A537500A1E7D9 /* Assets.xcassets */,
 				966611AE291A537500A1E7D9 /* iBank.entitlements */,
 				966611A6291A537500A1E7D9 /* Preview Content */,
@@ -109,6 +103,28 @@
 				966611A7291A537500A1E7D9 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		966611CE291ACA1100A1E7D9 /* ListView */ = {
+			isa = PBXGroup;
+			children = (
+				966611B6291A5A5100A1E7D9 /* AccountListingView.swift */,
+				966611BE291ABCDA00A1E7D9 /* CategoryListingView.swift */,
+				966611C4291AC44600A1E7D9 /* ThirdListingView.swift */,
+				966611C6291AC45400A1E7D9 /* ProjectListingView.swift */,
+			);
+			path = ListView;
+			sourceTree = "<group>";
+		};
+		966611CF291ACA1F00A1E7D9 /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				966611BA291A5AF400A1E7D9 /* AccountDetailView.swift */,
+				966611C8291AC60100A1E7D9 /* CategoryDetailView.swift */,
+				966611CA291AC71100A1E7D9 /* ThirdDetailView.swift */,
+				966611CC291AC7BF00A1E7D9 /* ProjectDetailView.swift */,
+			);
+			path = DetailView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
