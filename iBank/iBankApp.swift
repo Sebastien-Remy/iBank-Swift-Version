@@ -9,12 +9,16 @@ import SwiftUI
 
 @main
 struct iBankApp: App {
-    let persistenceController = PersistenceController.shared
-
+    @StateObject private var dataController = DataController()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environmentObject(dataController)
+                .environment(\.managedObjectContext, dataController.container.viewContext)
+                .onReceive(NotificationCenter.default.publisher(for: NSApplication.willTerminateNotification)) {_ in
+                    dataController.save()
+                }
         }
     }
 }

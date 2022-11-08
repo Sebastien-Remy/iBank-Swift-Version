@@ -11,8 +11,11 @@
 		966611A3291A537400A1E7D9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966611A2291A537400A1E7D9 /* ContentView.swift */; };
 		966611A5291A537500A1E7D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 966611A4291A537500A1E7D9 /* Assets.xcassets */; };
 		966611A8291A537500A1E7D9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 966611A7291A537500A1E7D9 /* Preview Assets.xcassets */; };
-		966611AA291A537500A1E7D9 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966611A9291A537500A1E7D9 /* Persistence.swift */; };
 		966611AD291A537500A1E7D9 /* iBank.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 966611AB291A537500A1E7D9 /* iBank.xcdatamodeld */; };
+		966611B5291A5A1D00A1E7D9 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966611B4291A5A1D00A1E7D9 /* DataController.swift */; };
+		966611B7291A5A5200A1E7D9 /* AccountListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966611B6291A5A5100A1E7D9 /* AccountListingView.swift */; };
+		966611B9291A5A6200A1E7D9 /* Account-CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966611B8291A5A6200A1E7D9 /* Account-CoreDataHelpers.swift */; };
+		966611BB291A5AF400A1E7D9 /* AccountDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966611BA291A5AF400A1E7D9 /* AccountDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,9 +24,12 @@
 		966611A2291A537400A1E7D9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		966611A4291A537500A1E7D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		966611A7291A537500A1E7D9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		966611A9291A537500A1E7D9 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		966611AC291A537500A1E7D9 /* iBank.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iBank.xcdatamodel; sourceTree = "<group>"; };
 		966611AE291A537500A1E7D9 /* iBank.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = iBank.entitlements; sourceTree = "<group>"; };
+		966611B4291A5A1D00A1E7D9 /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		966611B6291A5A5100A1E7D9 /* AccountListingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountListingView.swift; sourceTree = "<group>"; };
+		966611B8291A5A6200A1E7D9 /* Account-CoreDataHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Account-CoreDataHelpers.swift"; sourceTree = "<group>"; };
+		966611BA291A5AF400A1E7D9 /* AccountDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,11 +63,14 @@
 			isa = PBXGroup;
 			children = (
 				966611A0291A537400A1E7D9 /* iBankApp.swift */,
-				966611A2291A537400A1E7D9 /* ContentView.swift */,
-				966611A4291A537500A1E7D9 /* Assets.xcassets */,
-				966611A9291A537500A1E7D9 /* Persistence.swift */,
-				966611AE291A537500A1E7D9 /* iBank.entitlements */,
 				966611AB291A537500A1E7D9 /* iBank.xcdatamodeld */,
+				966611B4291A5A1D00A1E7D9 /* DataController.swift */,
+				966611B8291A5A6200A1E7D9 /* Account-CoreDataHelpers.swift */,
+				966611A2291A537400A1E7D9 /* ContentView.swift */,
+				966611B6291A5A5100A1E7D9 /* AccountListingView.swift */,
+				966611BA291A5AF400A1E7D9 /* AccountDetailView.swift */,
+				966611A4291A537500A1E7D9 /* Assets.xcassets */,
+				966611AE291A537500A1E7D9 /* iBank.entitlements */,
 				966611A6291A537500A1E7D9 /* Preview Content */,
 			);
 			path = iBank;
@@ -145,10 +154,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				966611AA291A537500A1E7D9 /* Persistence.swift in Sources */,
+				966611B5291A5A1D00A1E7D9 /* DataController.swift in Sources */,
 				966611A3291A537400A1E7D9 /* ContentView.swift in Sources */,
 				966611A1291A537400A1E7D9 /* iBankApp.swift in Sources */,
+				966611BB291A5AF400A1E7D9 /* AccountDetailView.swift in Sources */,
+				966611B9291A5A6200A1E7D9 /* Account-CoreDataHelpers.swift in Sources */,
 				966611AD291A537500A1E7D9 /* iBank.xcdatamodeld in Sources */,
+				966611B7291A5A5200A1E7D9 /* AccountListingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
