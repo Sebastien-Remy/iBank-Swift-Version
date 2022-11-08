@@ -81,15 +81,8 @@
 			isa = PBXGroup;
 			children = (
 				966611A0291A537400A1E7D9 /* iBankApp.swift */,
-				966611AB291A537500A1E7D9 /* iBank.xcdatamodeld */,
-				966611B4291A5A1D00A1E7D9 /* DataController.swift */,
-				966611B8291A5A6200A1E7D9 /* Account-CoreDataHelpers.swift */,
-				966611BC291A799C00A1E7D9 /* Cateogry-CoreDataHelpers.swift */,
-				966611C0291AC3CD00A1E7D9 /* Third-CoreDataHelpers.swift */,
-				966611C2291AC3E100A1E7D9 /* Project-CoreDataHelper.swift */,
-				966611A2291A537400A1E7D9 /* ContentView.swift */,
-				966611CE291ACA1100A1E7D9 /* ListView */,
-				966611CF291ACA1F00A1E7D9 /* DetailView */,
+				966611D0291ACA4100A1E7D9 /* Model */,
+				966611D1291ACA6400A1E7D9 /* View */,
 				966611A4291A537500A1E7D9 /* Assets.xcassets */,
 				966611AE291A537500A1E7D9 /* iBank.entitlements */,
 				966611A6291A537500A1E7D9 /* Preview Content */,
@@ -125,6 +118,29 @@
 				966611CC291AC7BF00A1E7D9 /* ProjectDetailView.swift */,
 			);
 			path = DetailView;
+			sourceTree = "<group>";
+		};
+		966611D0291ACA4100A1E7D9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				966611AB291A537500A1E7D9 /* iBank.xcdatamodeld */,
+				966611B4291A5A1D00A1E7D9 /* DataController.swift */,
+				966611B8291A5A6200A1E7D9 /* Account-CoreDataHelpers.swift */,
+				966611BC291A799C00A1E7D9 /* Cateogry-CoreDataHelpers.swift */,
+				966611C0291AC3CD00A1E7D9 /* Third-CoreDataHelpers.swift */,
+				966611C2291AC3E100A1E7D9 /* Project-CoreDataHelper.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		966611D1291ACA6400A1E7D9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				966611A2291A537400A1E7D9 /* ContentView.swift */,
+				966611CE291ACA1100A1E7D9 /* ListView */,
+				966611CF291ACA1F00A1E7D9 /* DetailView */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
