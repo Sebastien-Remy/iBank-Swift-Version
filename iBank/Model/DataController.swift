@@ -17,11 +17,47 @@ class DataController: ObservableObject {
     var saveTask: Task<Void, Error>?
     
     @Published var currentSelection: SelectionItem?
-    @Published var selectedAccount: Account? { didSet { currentSelection = .account } }
-    @Published var selectedCategory: Category? { didSet { currentSelection = .category } }
-    @Published var selectedThird: Third? { didSet { currentSelection = .third } }
-    @Published var selectedProject: Project? { didSet { currentSelection = .project } }
+    @Published var selectedAccount: Account? {
+        didSet {
+            if currentSelection != .account && selectedAccount != nil {
+                selectedCategory = nil
+                selectedThird = nil
+                selectedProject = nil
+                currentSelection = .account }
+            
+        }
+    }
+    @Published var selectedCategory: Category? {
+        didSet {
+            if currentSelection != .category && selectedCategory != nil {
+                selectedAccount = nil
+                selectedThird = nil
+                selectedProject = nil
+                currentSelection = .category
+            }
+        }
+    }
+    @Published var selectedThird: Third? {
+        didSet {
+            if currentSelection != .third && selectedThird != nil {
+                selectedAccount = nil
+                selectedCategory = nil
+                selectedProject = nil
+                currentSelection = .third
+            }
+        }
+    }
     
+    @Published var selectedProject: Project? {
+        didSet {
+            if currentSelection != .project && selectedProject != nil {
+                selectedAccount = nil
+                selectedCategory = nil
+                selectedThird = nil
+                currentSelection = .project
+            }
+        }
+    }
     
     init() {
         container.loadPersistentStores { descritption, error in
