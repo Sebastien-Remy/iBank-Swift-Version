@@ -13,18 +13,12 @@ struct ContentView: View {
     
     var body: some View {
         NavigationSplitView {
-            List() {
-                Section(content: {
-                    Text("Accounts")
-                    AccountListingView()
-                        .frame(minWidth: 500)
-                })
-                Section(content: {
-                    Text("Categories")
-                })
-                Spacer()
+            VStack {
+                AccountListingView()
+             
             }
-            .padding()
+                .frame(minWidth: 250)
+            
         } detail: {
             if let selectedAccount = dataController.selectedAccount {
                 AccountDetailView(account: selectedAccount)
@@ -33,8 +27,11 @@ struct ContentView: View {
                 Text("Please select a review")
             }
         }
-    }
     
+    }
+        func action() {
+            
+        }
 }
 
 struct ContentView_Previews: PreviewProvider {

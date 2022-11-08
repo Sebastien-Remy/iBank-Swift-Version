@@ -13,6 +13,8 @@ class DataController: ObservableObject {
     var saveTask: Task<Void, Error>?
     
     @Published var selectedAccount: Account?
+    @Published var selectedCategory: Category?
+    
     
     init() {
         container.loadPersistentStores { descritption, error in

@@ -13,29 +13,32 @@ struct AccountListingView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var accounts: FetchedResults<Account>
     
-    @AppStorage("id") var id = 1
     
     var body: some View {
-        List(accounts, selection: $dataController.selectedAccount) { account in
-            Text(account.accountName)
-                .tag(account)
-        }
-//        .onDeleteCommand(perform: deleteSelected) // isn't called here Known bug that Apple are working to fix
-        .contextMenu {
-            Button("Delete", role: .destructive, action: deleteSelected)
-        }
-        .toolbar{
-            Button(action: addAccount) {
-                Label("Add review", systemImage: "plus")
+        VStack {
+            HStack {
+                Text("Accounts")
+                    .font(.title2)
+                Spacer()
+                Button(action: addAccount, label: { Image(systemName: "plus")})
             }
-            Button(action: deleteSelected, label: { Label("Delete", systemImage: "trash") })
+            .padding([.leading, .trailing])
+            List(accounts, selection: $dataController.selectedAccount) { account in
+                Text(account.accountName)
+                    .tag(account)
+            }
+            .padding([.leading])
+            //        .onDeleteCommand(perform: deleteSelected) // isn't called here Known bug that Apple are working to fix
+            .contextMenu {
+                Button("Delete", role: .destructive, action: deleteSelected)
+            }
         }
     }
     
     func addAccount() {
         // Create account
         let account = Account(context: managedObjectContext)
-        account.name = "Account"
+        account.accountName = "New account"
         account.originalBalance = 0
         
         // Save
