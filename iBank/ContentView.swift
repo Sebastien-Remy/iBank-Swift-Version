@@ -13,11 +13,21 @@ struct ContentView: View {
     
     var body: some View {
         NavigationSplitView {
-            AccountListingView()
-                .frame(minWidth: 250)
+            List() {
+                Section(content: {
+                    Text("Accounts")
+                    AccountListingView()
+                        .frame(minWidth: 500)
+                })
+                Section(content: {
+                    Text("Categories")
+                })
+                Spacer()
+            }
+            .padding()
         } detail: {
-            if let selectedReview = dataController.selectedAccount {
-                AccountDetailView(account: selectedReview)
+            if let selectedAccount = dataController.selectedAccount {
+                AccountDetailView(account: selectedAccount)
                     .padding()
             } else {
                 Text("Please select a review")
@@ -29,6 +39,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        let dataController = DataController()
+        ContentView().environmentObject(dataController)
     }
 }
