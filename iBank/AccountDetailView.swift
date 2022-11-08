@@ -27,7 +27,6 @@ struct AccountDetailView: View {
 }
 
 struct AccountDetailView_Preview: PreviewProvider {
-
     static var previews: some View {
         let dataController = DataController()
         let account = Account(context: dataController.container.viewContext,
