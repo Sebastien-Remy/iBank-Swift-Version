@@ -49,7 +49,7 @@ struct ProjectListingView: View {
     }
     
     func deleteSelected() {
-        guard let selectedProject = dataController.selectedCategory else { return }
+        guard let selectedProject = dataController.selectedProject else { return }
         guard let selectedIndex = projects.firstIndex(of: selectedProject) else { return }
         managedObjectContext.delete(selectedProject)
         dataController.save()
