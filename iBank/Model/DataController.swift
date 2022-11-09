@@ -23,7 +23,6 @@ class DataController: ObservableObject {
                     selectedThird = nil
                     selectedProject = nil
                     currentSelection = .account
-                    
                 }
         }
     }
