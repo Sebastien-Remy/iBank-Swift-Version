@@ -10,24 +10,37 @@ import SwiftUI
 struct ContentView: View {
     
     @EnvironmentObject var dataController: DataController
+
     
     var body: some View {
         NavigationSplitView {
             VStack {
+                Picker("", selection: $dataController.selectedView) {
+                    Image(systemName: "building.columns").tag(SelectionItem.account)
+                    Image(systemName: "flag").tag(SelectionItem.category)
+                    Image(systemName: "person").tag(SelectionItem.third)
+                    Image(systemName: "bag").tag(SelectionItem.project)
+                }
+                .pickerStyle(.segmented)
+                .padding()
+                
                 Divider()
-                AccountListingView()
-                Divider()
-                CategoryListingView()
-                Divider()
-                ThirdListingView()
-                Divider()
-                ProjectListingView()
-                Spacer()
+                
+                switch dataController.selectedView {
+                case .account:
+                    AccountListingView()
+                case .category:
+                    CategoryListingView()
+                case.third:
+                    ThirdListingView()
+                case .project:
+                    ProjectListingView()
+                }
             }
             .frame(minWidth: 250)
             
         } detail: {
-            switch dataController.currentSelection {
+            switch dataController.selectedView {
             case .account:
                 if let selectedAccount = dataController.selectedAccount {
                     AccountDetailView(account: selectedAccount)
@@ -56,8 +69,6 @@ struct ContentView: View {
                 } else {
                     Text("Please select a project")
                 }
-            default:
-                Text("Select something on the left panel")
             }
         
     

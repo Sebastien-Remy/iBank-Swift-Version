@@ -16,26 +16,24 @@ struct ThirdListingView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Text("Thirds")
-                    .font(.title2)
-                Spacer()
-                Button(action: add, label: { Image(systemName: "plus")})
-            }
-            .padding([.leading, .trailing])
             List(thirds, selection: $dataController.selectedThird) { third in
                 Text(third.thirdName)
                     .tag(third)
             }
             .padding([.leading])
-            //        .onDeleteCommand(perform: deleteSelected) // isn't called here Known bug that Apple are working to fix
             .contextMenu {
                 Button("Delete third", role: .destructive, action: deleteSelected)
             }
+            HStack {
+                Text("Add third")
+                Spacer()
+                Button(action: addNew, label: { Image(systemName: "plus")})
+            }
+            .padding()
         }
     }
     
-    func add() {
+    func addNew() {
         // Create third
         let third = Third(context: managedObjectContext)
         third.thirdName = "New Third"

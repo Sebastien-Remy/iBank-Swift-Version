@@ -15,48 +15,11 @@ class DataController: ObservableObject {
     let container = NSPersistentContainer(name: "iBank") // must match the name in model!
     var saveTask: Task<Void, Error>?
     
-    @Published var currentSelection: SelectionItem?
-    @Published var selectedAccount: Account? {
-        didSet {
-            if currentSelection != .account && selectedAccount != nil {
-                    selectedCategory = nil
-                    selectedThird = nil
-                    selectedProject = nil
-                    currentSelection = .account
-                }
-        }
-    }
-    @Published var selectedCategory: Category? {
-        didSet {
-            if currentSelection != .category && selectedCategory != nil {
-                selectedAccount = nil
-                selectedThird = nil
-                selectedProject = nil
-                currentSelection = .category
-            }
-        }
-    }
-    @Published var selectedThird: Third? {
-        didSet {
-            if currentSelection != .third && selectedThird != nil {
-                selectedAccount = nil
-                selectedCategory = nil
-                selectedProject = nil
-                currentSelection = .third
-            }
-        }
-    }
-    
-    @Published var selectedProject: Project? {
-        didSet {
-            if currentSelection != .project && selectedProject != nil {
-                selectedAccount = nil
-                selectedCategory = nil
-                selectedThird = nil
-                currentSelection = .project
-            }
-        }
-    }
+    @Published var selectedView: SelectionItem = .account
+    @Published var selectedAccount: Account?
+    @Published var selectedCategory: Category?
+    @Published var selectedThird: Third?
+    @Published var selectedProject: Project?
     
     init() {
         container.loadPersistentStores { descritption, error in

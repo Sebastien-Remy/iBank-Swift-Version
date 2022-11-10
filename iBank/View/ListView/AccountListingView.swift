@@ -16,26 +16,25 @@ struct AccountListingView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Text("Accounts")
-                    .font(.title2)
-                Spacer()
-                Button(action: addAccount, label: { Image(systemName: "plus")})
-            }
-            .padding([.leading, .trailing])
+         
             List(accounts, selection: $dataController.selectedAccount) { account in
                 Text(account.accountName)
                     .tag(account)
             }
             .padding([.leading])
-            //        .onDeleteCommand(perform: deleteSelected) // isn't called here Known bug that Apple are working to fix
             .contextMenu {
                 Button("Delete", role: .destructive, action: deleteSelected)
             }
+            HStack {
+                Text("Add account")
+                Spacer()
+                Button(action: addNew, label: { Image(systemName: "plus")})
+            }
+            .padding()
         }
     }
     
-    func addAccount() {
+    func addNew() {
         // Create account
         let account = Account(context: managedObjectContext)
         account.accountName = "New account"

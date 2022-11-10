@@ -16,26 +16,25 @@ struct ProjectListingView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Text("Projects")
-                    .font(.title2)
-                Spacer()
-                Button(action: add, label: { Image(systemName: "plus")})
-            }
-            .padding([.leading, .trailing])
+
             List(projects, selection: $dataController.selectedProject) { project in
                 Text(project.projectName)
                     .tag(project)
             }
             .padding([.leading])
-            //        .onDeleteCommand(perform: deleteSelected) // isn't called here Known bug that Apple are working to fix
-            .contextMenu {
+             .contextMenu {
                 Button("Delete project", role: .destructive, action: deleteSelected)
             }
+            HStack {
+                Text("Add project")
+                Spacer()
+                Button(action: addNew, label: { Image(systemName: "plus")})
+            }
+            .padding()
         }
     }
     
-    func add() {
+    func addNew() {
         // Create category
         let project = Project(context: managedObjectContext)
         project.projectName = "New Project"
