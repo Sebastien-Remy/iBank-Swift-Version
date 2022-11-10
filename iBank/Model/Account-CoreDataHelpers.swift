@@ -25,4 +25,11 @@ extension Account {
             name = newValue
         }
     }
+    
+    var accountTransactions: [Transaction] {
+        let set = transactions as? Set<Transaction> ?? []
+        return set.sorted {
+            $0.transactionDate < $1.transactionDate
+        }
+    }
 }
