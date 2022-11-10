@@ -9,6 +9,10 @@ import Foundation
 
 extension Transaction {
     
+    enum Status {
+        case planned, engaged, checked
+    }
+    
     var transactionDate: Date {
         get { date ?? Date() }
         set {
@@ -22,6 +26,13 @@ extension Transaction {
         set {
             guard managedObjectContext  != nil else { return }
             name = newValue
+        }
+    }
+    
+    var transactionDetails: [TransactionDetail] {
+        let set = details as? Set<TransactionDetail> ?? []
+        return set.sorted {
+            $0.amount < $1.amount
         }
     }
 }

@@ -26,14 +26,20 @@ struct AccountDetailView: View {
             // Disable when review deleted
             .disabled(account.managedObjectContext == nil)
             
-            List {
-                ForEach(account.accountTransactions) { transaction in
-                    HStack {
-                        Text(transaction.transactionDate, style: .date)
-                        Text(transaction.transactionName)
-                    }
+            List(account.accountTransactions, selection: $dataController.selectedTransaction) { transaction in
+                HStack {
+                    Text(transaction.transactionDate, style: .date)
+                    Text(transaction.transactionName)
                 }
+                    .tag(transaction)
             }
+            .padding([.leading])
+            .contextMenu {
+                Button("Delete transaction", role: .destructive, action: deleteSelected)
+            }
+            
+            
+            // DEBUG ONLY BUTTON
             Button("Add") {
                 let t = Transaction(context: managedObjectContext)
                 t.account = account
@@ -44,6 +50,37 @@ struct AccountDetailView: View {
                 try? managedObjectContext.save()
             }
             
+        }
+    }
+    
+    func addNew() {
+        // Create detail
+        let project = Project(context: managedObjectContext)
+        project.projectName = "New Project"
+        
+        
+        // Save
+        dataController.save()
+        
+        // Select just added account
+        dataController.selectedProject = project
+    }
+    
+    func deleteSelected() {
+        guard let selectedTransaction = dataController.selectedTransaction else { return }
+        guard let selectedIndex = account.accountTransactions.firstIndex(of: selectedTransaction) else { return }
+        managedObjectContext.delete(selectedTransaction)
+        dataController.save()
+        
+        if selectedIndex < account.accountTransactions.count {
+            dataController.selectedTransaction = account.accountTransactions [selectedIndex]
+        } else {
+            let previousIndex = selectedIndex - 1
+            if previousIndex >= 0 {
+                dataController.selectedTransaction = account.accountTransactions[previousIndex]
+            } else {
+                dataController.selectedTransaction = nil
+            }
         }
     }
 }

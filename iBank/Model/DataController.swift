@@ -22,6 +22,7 @@ class DataController: ObservableObject {
     @Published var selectedCategory: Category?
     @Published var selectedThird: Third?
     @Published var selectedProject: Project?
+    @Published var selectedTransaction: Transaction?
     
     init() {
         container.loadPersistentStores { descritption, error in

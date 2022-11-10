@@ -7,17 +7,28 @@
     </entity>
     <entity name="Category" representedClassName="Category" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="transactionDetails" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TransactionDetail" inverseName="category" inverseEntity="TransactionDetail"/>
     </entity>
     <entity name="Project" representedClassName="Project" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="transactionDetails" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TransactionDetail" inverseName="project" inverseEntity="TransactionDetail"/>
     </entity>
     <entity name="Third" representedClassName="Third" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="transactionDetails" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TransactionDetail" inverseName="third" inverseEntity="TransactionDetail"/>
     </entity>
     <entity name="Transaction" representedClassName="Transaction" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="status" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="transactions" inverseEntity="Account"/>
+        <relationship name="details" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TransactionDetail" inverseName="transaction" inverseEntity="TransactionDetail"/>
+    </entity>
+    <entity name="TransactionDetail" representedClassName="TransactionDetail" syncable="YES" codeGenerationType="class">
+        <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="transactionDetails" inverseEntity="Category"/>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="transactionDetails" inverseEntity="Project"/>
+        <relationship name="third" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Third" inverseName="transactionDetails" inverseEntity="Third"/>
+        <relationship name="transaction" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Transaction" inverseName="details" inverseEntity="Transaction"/>
     </entity>
 </model>
