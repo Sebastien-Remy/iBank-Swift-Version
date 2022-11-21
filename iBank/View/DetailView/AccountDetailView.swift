@@ -64,9 +64,10 @@ struct AccountDetailView: View {
 struct AccountDetailView_Preview: PreviewProvider {
     static var previews: some View {
         let dataController = DataController()
+    
         let account = Account(context: dataController.container.viewContext,
-                              name: "Tes",
-                              originalBalance: 52.0)
+                              name: "Test",
+                              originalBalance: 0.0)
         AccountDetailView(account: account)
             .environmentObject(dataController)
     }

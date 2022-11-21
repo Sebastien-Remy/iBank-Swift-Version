@@ -93,7 +93,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        let dataController = DataController()
-        ContentView().environmentObject(dataController)
+        ContentView()
+            .environmentObject(DataController())
     }
 }

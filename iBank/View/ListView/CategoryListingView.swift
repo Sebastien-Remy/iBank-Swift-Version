@@ -73,5 +73,6 @@ struct CategoryListingView: View {
 struct CategoryListingView_Previews: PreviewProvider {
     static var previews: some View {
         CategoryListingView()
+            .environmentObject(DataController())
     }
 }

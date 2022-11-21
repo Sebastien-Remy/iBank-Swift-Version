@@ -72,5 +72,6 @@ struct ThirdListingView: View {
 struct ThirdListingView_Previews: PreviewProvider {
     static var previews: some View {
         ThirdListingView()
+            .environmentObject(DataController())
     }
 }

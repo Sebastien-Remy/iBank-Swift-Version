@@ -50,8 +50,9 @@ struct TransactionListingView: View {
     }
 }
 
-//struct TransactionListingView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TransactionListingView()
-//    }
-//}
+struct TransactionListingView_Previews: PreviewProvider {
+    static var previews: some View {
+        TransactionListingView(transactions: [])
+            .environmentObject(DataController())
+    }
+}

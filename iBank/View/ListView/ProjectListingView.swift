@@ -74,5 +74,6 @@ struct ProjectListingView: View {
 struct ProjectListingView_Previews: PreviewProvider {
     static var previews: some View {
         ProjectListingView()
+            .environmentObject(DataController())
     }
 }

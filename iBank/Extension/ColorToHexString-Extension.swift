@@ -15,12 +15,21 @@ extension Color {
             var r: CGFloat = 0
             var g: CGFloat = 0
             var b: CGFloat = 0
-            var a: CGFloat = 0
+            var a: CGFloat = 1
             
+            if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" {
+                // Need to set a Color Space in preview
+                guard let _ = NSColor(self).usingColorSpace(NSColorSpace()) else { return (r, g, b, a) }
+                return (r, g, b, a)
+                
+            }
+                
             let color = NSColor(self)
+            
             color.getRed(&r, green: &g, blue: &b, alpha: &a) //& is pointer for historical reasons
             
             return (r, g, b, a)
+            
         }
         
         let components = getComponents()
