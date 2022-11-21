@@ -17,26 +17,18 @@ struct AccountDetailView: View {
         VStack {
             Form {
                 TextField("Account: ", text: $account.accountName)
+                ColorPicker("Color", selection: $account.accountColor)
                 TextField("Original balance: ", value: $account.originalBalance, format: .number)
             }
             // Save on Change
             .onChange(of: account.accountName, perform: dataController.enqueueSave)
+            .onChange(of: account.accountColor, perform: dataController.enqueueSave)
             .onChange(of: account.originalBalance, perform: dataController.enqueueSave)
             
             // Disable when review deleted
             .disabled(account.managedObjectContext == nil)
             
-            List(account.accountTransactions, selection: $dataController.selectedTransaction) { transaction in
-                HStack {
-                    Text(transaction.transactionDate, style: .date)
-                    Text(transaction.transactionName)
-                }
-                    .tag(transaction)
-            }
-            .padding([.leading])
-            .contextMenu {
-                Button("Delete transaction", role: .destructive, action: deleteSelected)
-            }
+            TransactionListingView(transactions: account.accountTransactions)
             
             
             // DEBUG ONLY BUTTON
@@ -44,7 +36,7 @@ struct AccountDetailView: View {
                 let t = Transaction(context: managedObjectContext)
                 t.account = account
                 t.transactionDate = Date()
-                t.transactionName = "test"
+                t.transactionTitle = "test"
               
                 
                 try? managedObjectContext.save()
@@ -66,23 +58,7 @@ struct AccountDetailView: View {
         dataController.selectedProject = project
     }
     
-    func deleteSelected() {
-        guard let selectedTransaction = dataController.selectedTransaction else { return }
-        guard let selectedIndex = account.accountTransactions.firstIndex(of: selectedTransaction) else { return }
-        managedObjectContext.delete(selectedTransaction)
-        dataController.save()
-        
-        if selectedIndex < account.accountTransactions.count {
-            dataController.selectedTransaction = account.accountTransactions [selectedIndex]
-        } else {
-            let previousIndex = selectedIndex - 1
-            if previousIndex >= 0 {
-                dataController.selectedTransaction = account.accountTransactions[previousIndex]
-            } else {
-                dataController.selectedTransaction = nil
-            }
-        }
-    }
+    
 }
 
 struct AccountDetailView_Preview: PreviewProvider {

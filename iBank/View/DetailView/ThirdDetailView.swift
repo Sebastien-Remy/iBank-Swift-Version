@@ -14,9 +14,12 @@ struct ThirdDetailView: View {
     var body: some View {
         Form {
             TextField("Third: ", text: $third.thirdName)
+            ColorPicker("Color", selection: $third.thirdColor)
         }
         // Save on Change
         .onChange(of: third.thirdName, perform: dataController.enqueueSave)
+        
+        .onChange(of:third.thirdColor, perform: dataController.enqueueSave)
         
         // Disable when third deleted
         .disabled(third.managedObjectContext == nil)

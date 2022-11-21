@@ -18,8 +18,13 @@ struct CategoryListingView: View {
         VStack {
 
             List(categories, selection: $dataController.selectedCategory) { category in
-                Text(category.categoryName)
-                    .tag(category)
+                HStack {
+                    Image(systemName: category.categoryIconName)
+                        .foregroundColor(category.categoryColor)
+                    
+                    Text(category.categoryName)
+                }
+                .tag(category)
             }
             .padding([.leading])
             .contextMenu {

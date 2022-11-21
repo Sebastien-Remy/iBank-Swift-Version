@@ -16,10 +16,21 @@ struct ContentView: View {
         NavigationSplitView {
             VStack {
                 Picker("", selection: $dataController.selectedView) {
-                    Image(systemName: "building.columns").tag(IBankEntity.account)
-                    Image(systemName: "flag").tag(IBankEntity.category)
-                    Image(systemName: "person").tag(IBankEntity.third)
-                    Image(systemName: "bag").tag(IBankEntity.project)
+                    
+                    // Bank account
+                    Image(systemName: Constants.Account.iconName)
+                        .tag(IBankEntity.account)
+                    
+                    // Category
+                    Image(systemName: Constants.Category.iconName).tag(IBankEntity.category)
+                    
+                    // Third
+                    Image(systemName: Constants.Category.iconName)
+                        .tag(IBankEntity.third)
+                    
+                    // Project
+                    Image(systemName: Constants.Project.iconName)
+                        .tag(IBankEntity.project)
                 }
                 .pickerStyle(.segmented)
                 .padding()

@@ -18,8 +18,13 @@ struct AccountListingView: View {
         VStack {
          
             List(accounts, selection: $dataController.selectedAccount) { account in
-                Text(account.accountName)
-                    .tag(account)
+                HStack {
+                    Image(systemName: account.accountIconName)
+                        .foregroundColor(account.accountColor)
+                    
+                    Text(account.accountName)
+                }
+                .tag(account)
             }
             .padding([.leading])
             .contextMenu {

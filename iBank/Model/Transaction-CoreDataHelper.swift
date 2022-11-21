@@ -21,18 +21,13 @@ extension Transaction {
         }
     }
     
-    var transactionName: String {
-        get { name ?? "" }
+    var transactionTitle: String {
+        get { title ?? "" }
         set {
             guard managedObjectContext  != nil else { return }
-            name = newValue
+            title = newValue
         }
     }
     
-    var transactionDetails: [TransactionDetail] {
-        let set = details as? Set<TransactionDetail> ?? []
-        return set.sorted {
-            $0.amount < $1.amount
-        }
-    }
+
 }

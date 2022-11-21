@@ -16,13 +16,18 @@ struct ProjectListingView: View {
     
     var body: some View {
         VStack {
-
+            
             List(projects, selection: $dataController.selectedProject) { project in
-                Text(project.projectName)
-                    .tag(project)
+                HStack {
+                    Image(systemName: project.projectIconName)
+                        .foregroundColor(project.projectColor)
+                    Text(project.projectName)
+                    
+                }
+                .tag(project)
             }
             .padding([.leading])
-             .contextMenu {
+            .contextMenu {
                 Button("Delete project", role: .destructive, action: deleteSelected)
             }
             HStack {

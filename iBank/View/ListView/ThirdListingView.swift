@@ -17,7 +17,11 @@ struct ThirdListingView: View {
     var body: some View {
         VStack {
             List(thirds, selection: $dataController.selectedThird) { third in
-                Text(third.thirdName)
+                HStack {
+                    Image(systemName: third.thirdIconName)
+                        .foregroundColor(third.thirdColor)
+                    Text(third.thirdName)
+                }
                     .tag(third)
             }
             .padding([.leading])

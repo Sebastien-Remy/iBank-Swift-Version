@@ -15,9 +15,12 @@ struct CategoryDetailView: View {
     var body: some View {
         Form {
             TextField("Category: ", text: $category.categoryName)
+            
+            ColorPicker("Color", selection: $category.categoryColor)
         }
         // Save on Change
         .onChange(of: category.categoryName, perform: dataController.enqueueSave)
+        .onChange(of: category.categoryColor, perform: dataController.enqueueSave)
         
         // Disable when category deleted
         .disabled(category.managedObjectContext == nil)

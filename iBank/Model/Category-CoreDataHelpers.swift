@@ -1,5 +1,5 @@
 //
-//  Project-CoreDataHelper.swift
+//  CateogryCoreDataHelpers.swift
 //  iBank
 //
 //  Created by Sebastien REMY on 08/11/2022.
@@ -9,27 +9,27 @@ import Foundation
 import CoreData
 import SwiftUI
 
-extension Project {
+extension Category {
     
     convenience init(context: NSManagedObjectContext,
                      name: String) {
         self.init(context: context)
         self.name = name
-        self.iconName = Constants.Project.iconName
+        self.iconName = Constants.Category.iconName
     }
     
-    var projectName: String {
-        get { name ?? "" }
+    var categoryColor: Color {
+        get { Color(fromHexString: colorAsHex) ?? Color.primary }
         set {
             guard managedObjectContext  != nil else { return }
-            name = newValue
+            colorAsHex = newValue.toHexString()
         }
     }
     
-    var projectIconName: String {
+    var categoryIconName: String {
         get {
-            let systemName = iconName ?? Constants.Project.iconName
-            if NSImage(systemSymbolName: systemName, accessibilityDescription: "") == nil { return Constants.Project.iconName }
+            let systemName = iconName ?? Constants.Category.iconName
+            if NSImage(systemSymbolName: systemName, accessibilityDescription: "") == nil { return Constants.Category.iconName }
             return systemName
         }
         set {
@@ -38,11 +38,11 @@ extension Project {
         }
     }
     
-    var projectColor: Color {
-        get { Color(fromHexString: colorAsHex) ?? Color.primary }
+    var categoryName: String {
+        get { name ?? "" }
         set {
             guard managedObjectContext  != nil else { return }
-            colorAsHex = newValue.toHexString()
+            name = newValue
         }
     }
 }
