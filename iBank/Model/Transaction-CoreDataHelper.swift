@@ -9,9 +9,7 @@ import Foundation
 
 extension Transaction {
     
-    enum Status {
-        case planned, engaged, checked
-    }
+   
     
     var transactionDate: Date {
         get { date ?? Date() }
@@ -26,6 +24,15 @@ extension Transaction {
         set {
             guard managedObjectContext  != nil else { return }
             title = newValue
+        }
+    }
+    
+    var transactionStatus: String {
+        get {
+            return TransactionStatus(rawValue: Int(status))?.statusString ?? TransactionStatus.engaged.statusString
+        }
+        set {
+            guard managedObjectContext  != nil else { return }
         }
     }
     
