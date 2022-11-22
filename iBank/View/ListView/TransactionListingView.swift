@@ -12,23 +12,35 @@ struct TransactionListingView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @EnvironmentObject var dataController: DataController
     
+    @State private var showingRendered = false
+    
     var transactions: [Transaction]
     
     var body: some View {
-        List(transactions, selection: $dataController.selectedTransaction) { transaction in
-            HStack {
-                Text(transaction.transactionDate, style: .date)
-                Text(transaction.transactionTitle)
-            }
-            .contextMenu {
-                if dataController.selectedTransaction != nil {
-                    Button("Delete transaction", role: .destructive, action: deleteSelected)
+        VStack {
+            List(transactions, selection: $dataController.selectedTransaction) { transaction in
+                HStack {
+                    Text(transaction.transactionDate, style: .date)
+                    Text(transaction.transactionTitle)
                 }
+                .contextMenu {
+                    if dataController.selectedTransaction != nil {
+                        Button("Delete transaction", role: .destructive, action: deleteSelected)
+                    }
+                }
+                .tag(transaction)
             }
-            .tag(transaction)
+            Button {
+                showingRendered.toggle()
+            } label: {
+                Label("Add", systemImage: "plus")
+                    .labelStyle(.iconOnly)
+            }
+            .padding([.leading])
+            .sheet(isPresented: $showingRendered,
+                   content: { TransactionDetailView(moc: managedObjectContext) }
+            )
         }
-        .padding([.leading])
-     
     }
     
     func deleteSelected() {
