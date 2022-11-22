@@ -45,11 +45,11 @@ struct AccountListingView: View {
         account.accountName = "New account"
         account.originalBalance = 0
         
-        // Save
-        dataController.save()
-        
         // Select just added account
         dataController.selectedAccount = account
+        
+        // Save
+        dataController.save()
     }
     
     func deleteSelected() {
