@@ -102,6 +102,7 @@
 		96615A8229390C4400BBA1A9 /* BalanceView */ = {
 			isa = PBXGroup;
 			children = (
+				96615A7D293903C700BBA1A9 /* BalanceView.swift */,
 				96615A7F2939044000BBA1A9 /* BalanceItemView.swift */,
 			);
 			path = BalanceView;
@@ -189,7 +190,6 @@
 		966611D1291ACA6400A1E7D9 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				96615A7D293903C700BBA1A9 /* BalanceView.swift */,
 				96615A8129390C0D00BBA1A9 /* Main */,
 				96615A8229390C4400BBA1A9 /* BalanceView */,
 				966611CE291ACA1100A1E7D9 /* ListView */,
