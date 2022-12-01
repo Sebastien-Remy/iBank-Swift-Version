@@ -14,7 +14,7 @@ struct TransactionListingView: View {
     
     @State private var showingRendered = false
     
-    @State var transactions: [Transaction]
+    @State var transactions: [Transaction] = []
     
     var body: some View {
         VStack {

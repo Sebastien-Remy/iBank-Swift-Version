@@ -19,20 +19,22 @@ struct ContentView: View {
             
            BalanceView()
             
-            List(transactions, selection: $dataController.selectedTransaction) { transaction in
-                HStack {
-                    Text(transaction.transactionDate, style: .date)
-                    Text(transaction.transactionTitle)
-                    Text(transaction.account?.accountName ?? "Select Account")
-                    Text(transaction.third?.thirdName ?? "Select third")
-                }
-                //                .contextMenu {
-                //                    if dataController.selectedTransaction != nil {
-                //                        Button("Delete transaction", role: .destructive, action: deleteSelected)
-                //                    }
-                //                }
-                .tag(transaction)
-            }
+            TransactionListingView()
+            
+//            List(transactions, selection: $dataController.selectedTransaction) { transaction in
+//                HStack {
+//                    Text(transaction.transactionDate, style: .date)
+//                    Text(transaction.transactionTitle)
+//                    Text(transaction.account?.accountName ?? "Select Account")
+//                    Text(transaction.third?.thirdName ?? "Select third")
+//                }
+//                //                .contextMenu {
+//                //                    if dataController.selectedTransaction != nil {
+//                //                        Button("Delete transaction", role: .destructive, action: deleteSelected)
+//                //                    }
+//                //                }
+//                .tag(transaction)
+//            }
         }
     }
 }
