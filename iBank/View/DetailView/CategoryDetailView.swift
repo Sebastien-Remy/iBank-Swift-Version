@@ -11,22 +11,25 @@ struct CategoryDetailView: View {
   
     @ObservedObject var category: Category
     @EnvironmentObject var dataController: DataController
+  
+    @State private var isExpanded = false
     
     var body: some View {
-        VStack {
-            Form {
-                TextField("Category: ", text: $category.categoryName)
+        DisclosureGroup("Category", isExpanded: $isExpanded) {
+            VStack {
+                Form {
+                    TextField("Name: ", text: $category.categoryName)
+                    
+                    ColorPicker("Color:", selection: $category.categoryColor)
+                }
+                // Save on Change
+                .onChange(of: category.categoryName, perform: dataController.enqueueSave)
+                .onChange(of: category.categoryColor, perform: dataController.enqueueSave)
                 
-                ColorPicker("Color", selection: $category.categoryColor)
+                // Disable when category deleted
+                .disabled(category.managedObjectContext == nil)
+                
             }
-            // Save on Change
-            .onChange(of: category.categoryName, perform: dataController.enqueueSave)
-            .onChange(of: category.categoryColor, perform: dataController.enqueueSave)
-            
-            // Disable when category deleted
-            .disabled(category.managedObjectContext == nil)
-            
-            Spacer()
         }
     }
 }

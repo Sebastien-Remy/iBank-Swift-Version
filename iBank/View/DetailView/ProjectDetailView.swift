@@ -11,21 +11,24 @@ struct ProjectDetailView: View {
     @ObservedObject var project: Project
     @EnvironmentObject var dataController: DataController
     
+    @State private var isExpanded = false
+    
     var body: some View {
-        VStack {
-            Form {
-                TextField("Project: ", text: $project.projectName)
-                ColorPicker("Color", selection: $project.projectColor)
+        DisclosureGroup("Project", isExpanded: $isExpanded) {
+            VStack {
+                Form {
+                    TextField("Project: ", text: $project.projectName)
+                    ColorPicker("Color:", selection: $project.projectColor)
+                }
+                // Save on Change
+                .onChange(of: project.projectName, perform: dataController.enqueueSave)
+                
+                .onChange(of: project.projectColor, perform: dataController.enqueueSave)
+                
+                // Disable when project deleted
+                .disabled(project.managedObjectContext == nil)
+                
             }
-            // Save on Change
-            .onChange(of: project.projectName, perform: dataController.enqueueSave)
-            
-            .onChange(of: project.projectColor, perform: dataController.enqueueSave)
-            
-            // Disable when project deleted
-            .disabled(project.managedObjectContext == nil)
-            
-            Spacer()
         }
     }
 }

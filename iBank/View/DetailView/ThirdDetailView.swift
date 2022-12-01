@@ -12,21 +12,24 @@ struct ThirdDetailView: View {
     @ObservedObject var third: Third
     @EnvironmentObject var dataController: DataController
     
+    @State private var isExpanded = false
+    
     var body: some View {
-        VStack {
-            Form {
-                TextField("Third: ", text: $third.thirdName)
-                ColorPicker("Color", selection: $third.thirdColor)
+        DisclosureGroup("Third", isExpanded: $isExpanded) {
+            VStack {
+                Form {
+                    TextField("Name: ", text: $third.thirdName)
+                    ColorPicker("Color:", selection: $third.thirdColor)
+                }
+                // Save on Change
+                .onChange(of: third.thirdName, perform: dataController.enqueueSave)
+                
+                .onChange(of:third.thirdColor, perform: dataController.enqueueSave)
+                
+                // Disable when third deleted
+                .disabled(third.managedObjectContext == nil)
+                
             }
-            // Save on Change
-            .onChange(of: third.thirdName, perform: dataController.enqueueSave)
-            
-            .onChange(of:third.thirdColor, perform: dataController.enqueueSave)
-            
-            // Disable when third deleted
-            .disabled(third.managedObjectContext == nil)
-            
-            Spacer()
         }
     }
 }

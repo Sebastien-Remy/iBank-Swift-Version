@@ -12,35 +12,38 @@ struct DetailView: View {
     @EnvironmentObject var dataController: DataController
     
     var body: some View {
-        switch dataController.selectedView {
-        case .account:
-            if let selectedAccount = dataController.selectedAccount {
-                AccountDetailView(account: selectedAccount)
-                    .padding()
-            } else {
-                Text("Please select an account")
+        VStack {
+            switch dataController.selectedView {
+            case .account:
+                if let selectedAccount = dataController.selectedAccount {
+                    AccountDetailView(account: selectedAccount)
+                        .padding()
+                } else {
+                    Text("Please select an account")
+                }
+            case .category:
+                if let selectedCategory = dataController.selectedCategory {
+                    CategoryDetailView(category: selectedCategory)
+                        .padding()
+                } else {
+                    Text("Please select a category")
+                }
+            case .third:
+                if let selectedThird = dataController.selectedThird {
+                    ThirdDetailView(third: selectedThird)
+                        .padding()
+                } else {
+                    Text("Please select a third")
+                }
+            case .project:
+                if let selectedProject = dataController.selectedProject {
+                    ProjectDetailView(project: selectedProject)
+                        .padding()
+                } else {
+                    Text("Please select a project")
+                }
             }
-        case .category:
-            if let selectedCategory = dataController.selectedCategory {
-                CategoryDetailView(category: selectedCategory)
-                    .padding()
-            } else {
-                Text("Please select a category")
-            }
-        case .third:
-            if let selectedThird = dataController.selectedThird {
-                ThirdDetailView(third: selectedThird)
-                    .padding()
-            } else {
-                Text("Please select a third")
-            }
-        case .project:
-            if let selectedProject = dataController.selectedProject {
-                ProjectDetailView(project: selectedProject)
-                    .padding()
-            } else {
-                Text("Please select a project")
-            }
+            Spacer()
         }
     }
 }
