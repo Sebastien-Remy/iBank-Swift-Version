@@ -8,21 +8,26 @@
 import SwiftUI
 
 struct ThirdDetailView: View {
+    
     @ObservedObject var third: Third
     @EnvironmentObject var dataController: DataController
     
     var body: some View {
-        Form {
-            TextField("Third: ", text: $third.thirdName)
-            ColorPicker("Color", selection: $third.thirdColor)
+        VStack {
+            Form {
+                TextField("Third: ", text: $third.thirdName)
+                ColorPicker("Color", selection: $third.thirdColor)
+            }
+            // Save on Change
+            .onChange(of: third.thirdName, perform: dataController.enqueueSave)
+            
+            .onChange(of:third.thirdColor, perform: dataController.enqueueSave)
+            
+            // Disable when third deleted
+            .disabled(third.managedObjectContext == nil)
+            
+            Spacer()
         }
-        // Save on Change
-        .onChange(of: third.thirdName, perform: dataController.enqueueSave)
-        
-        .onChange(of:third.thirdColor, perform: dataController.enqueueSave)
-        
-        // Disable when third deleted
-        .disabled(third.managedObjectContext == nil)
     }
 }
 

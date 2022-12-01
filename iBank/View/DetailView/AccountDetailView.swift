@@ -18,7 +18,9 @@ struct AccountDetailView: View {
             Form {
                 TextField("Account: ", text: $account.accountName)
                 ColorPicker("Color", selection: $account.accountColor)
-                TextField("Original balance: ", value: $account.originalBalance, format: .number)
+                TextField("Original balance: ",
+                          value: $account.originalBalance,
+                          format: .currency(code: Locale.current.currency?.identifier ?? ""))
             }
             // Save on Change
             .onChange(of: account.accountName, perform: dataController.enqueueSave)
@@ -28,37 +30,11 @@ struct AccountDetailView: View {
             // Disable when review deleted
             .disabled(account.managedObjectContext == nil)
             
-            TransactionListingView(transactions: account.accountTransactions)
             
-            
-            // DEBUG ONLY BUTTON
-            Button("Add") {
-                let t = Transaction(context: managedObjectContext)
-                t.account = account
-                t.transactionDate = Date()
-                t.transactionTitle = "test"
-              
-                
-                try? managedObjectContext.save()
-            }
-            
+            Spacer()
+           
         }
     }
-    
-    func addNew() {
-        // Create detail
-        let project = Project(context: managedObjectContext)
-        project.projectName = "New Project"
-        
-        
-        // Save
-        dataController.save()
-        
-        // Select just added account
-        dataController.selectedProject = project
-    }
-    
-    
 }
 
 struct AccountDetailView_Preview: PreviewProvider {

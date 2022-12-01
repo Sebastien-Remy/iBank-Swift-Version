@@ -13,7 +13,7 @@ struct iBankApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
                 .environmentObject(dataController)
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 .onReceive(NotificationCenter.default.publisher(for: NSApplication.willTerminateNotification)) {_ in

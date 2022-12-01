@@ -12,17 +12,21 @@ struct ProjectDetailView: View {
     @EnvironmentObject var dataController: DataController
     
     var body: some View {
-        Form {
-            TextField("Project: ", text: $project.projectName)
-            ColorPicker("Color", selection: $project.projectColor)
+        VStack {
+            Form {
+                TextField("Project: ", text: $project.projectName)
+                ColorPicker("Color", selection: $project.projectColor)
+            }
+            // Save on Change
+            .onChange(of: project.projectName, perform: dataController.enqueueSave)
+            
+            .onChange(of: project.projectColor, perform: dataController.enqueueSave)
+            
+            // Disable when project deleted
+            .disabled(project.managedObjectContext == nil)
+            
+            Spacer()
         }
-        // Save on Change
-        .onChange(of: project.projectName, perform: dataController.enqueueSave)
-        
-        .onChange(of: project.projectColor, perform: dataController.enqueueSave)
-        
-        // Disable when project deleted
-        .disabled(project.managedObjectContext == nil)
     }
 }
 

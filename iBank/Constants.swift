@@ -6,8 +6,14 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Constants {
+    struct TransactionStatusColor {
+        static let planned = Color.purple
+        static let engaded = Color.blue
+        static let checked = Color.green
+    }
     struct Account {
         static let iconName = "building.columns"
     }

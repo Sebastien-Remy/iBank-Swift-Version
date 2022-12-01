@@ -14,20 +14,42 @@ struct TransactionListingView: View {
     
     @State private var showingRendered = false
     
-    var transactions: [Transaction]
+    @State var transactions: [Transaction]
     
     var body: some View {
         VStack {
+            Table($transactions, selection: $dataController.selectedTransaction)
+            {
+                TableColumn("Date") { $transaction in
+                    Text(transaction.transactionDate, style: .date)
+                }
+                TableColumn("Title") { $transaction in
+                    
+                    TextField("Title:", text: $transaction.transactionTitle)
+                }
+            }    // DEBUG ONLY BUTTON
+                Button("Add") {
+                    let t = Transaction(context: managedObjectContext)
+                    t.transactionDate = Date()
+                    t.transactionTitle = "test"
+                    
+                    
+                    try? managedObjectContext.save()
+                    transactions.append(t)
+                }
+            
             List(transactions, selection: $dataController.selectedTransaction) { transaction in
                 HStack {
                     Text(transaction.transactionDate, style: .date)
                     Text(transaction.transactionTitle)
+                     Text(transaction.account?.accountName ?? "Select Account")
+                    Text(transaction.third?.thirdName ?? "Select third")
                 }
-                .contextMenu {
-                    if dataController.selectedTransaction != nil {
-                        Button("Delete transaction", role: .destructive, action: deleteSelected)
-                    }
-                }
+//                .contextMenu {
+//                    if dataController.selectedTransaction != nil {
+//                        Button("Delete transaction", role: .destructive, action: deleteSelected)
+//                    }
+//                }
                 .tag(transaction)
             }
             Button {
@@ -43,23 +65,23 @@ struct TransactionListingView: View {
         }
     }
     
-    func deleteSelected() {
-        guard let selectedTransaction = dataController.selectedTransaction else { return }
-        guard let selectedIndex = transactions.firstIndex(of: selectedTransaction) else { return }
-        managedObjectContext.delete(selectedTransaction)
-        dataController.save()
-        
-        if selectedIndex < transactions.count {
-            dataController.selectedTransaction = transactions [selectedIndex]
-        } else {
-            let previousIndex = selectedIndex - 1
-            if previousIndex >= 0 {
-                dataController.selectedTransaction = transactions [previousIndex]
-            } else {
-                dataController.selectedTransaction = nil
-            }
-        }
-    }
+//    func deleteSelected() {
+//        guard let selectedTransaction = dataController.selectedTransaction else { return }
+//        guard let selectedIndex = transactions.firstIndex(of: selectedTransaction) else { return }
+//        managedObjectContext.delete(selectedTransaction)
+//        dataController.save()
+//
+//        if selectedIndex < transactions.count {
+//            dataController.selectedTransaction = transactions [selectedIndex]
+//        } else {
+//            let previousIndex = selectedIndex - 1
+//            if previousIndex >= 0 {
+//                dataController.selectedTransaction = transactions [previousIndex]
+//            } else {
+//                dataController.selectedTransaction = nil
+//            }
+//        }
+//    }
 }
 
 struct TransactionListingView_Previews: PreviewProvider {
