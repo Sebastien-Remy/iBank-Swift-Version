@@ -43,7 +43,7 @@ struct TransactionListingView: View {
                     Text(transaction.transactionDate, style: .date)
                     Text(transaction.transactionTitle)
                      Text(transaction.account?.accountName ?? "Select Account")
-                    Text(transaction.third?.thirdName ?? "Select third")
+                   
                 }
 //                .contextMenu {
 //                    if dataController.selectedTransaction != nil {
