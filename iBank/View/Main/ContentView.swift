@@ -11,30 +11,17 @@ struct ContentView: View {
     
     @EnvironmentObject var dataController: DataController
     
-    
-    @State var transactions: [Transaction] = []
-    
     var body: some View {
         VStack {
-            
-           BalanceView()
-            
-            AccountTransactionsListingView()
-            
-//            List(transactions, selection: $dataController.selectedTransaction) { transaction in
-//                HStack {
-//                    Text(transaction.transactionDate, style: .date)
-//                    Text(transaction.transactionTitle)
-//                    Text(transaction.account?.accountName ?? "Select Account")
-//                    Text(transaction.third?.thirdName ?? "Select third")
-//                }
-//                //                .contextMenu {
-//                //                    if dataController.selectedTransaction != nil {
-//                //                        Button("Delete transaction", role: .destructive, action: deleteSelected)
-//                //                    }
-//                //                }
-//                .tag(transaction)
-//            }
+            if let accoundId = dataController.selectedAccount {
+                BalanceView()
+                AccountTransactionsListingView(account: accoundId)
+            }
+            else {
+                Spacer()
+                Text ("Select an account")
+                Spacer()
+                }
         }
     }
 }

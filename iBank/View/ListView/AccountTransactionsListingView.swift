@@ -14,8 +14,9 @@ struct AccountTransactionsListingView: View {
     
     @State private var showingTransactionSheetView = false
     @State private var showingDeleteAlert = false
+    @State private var editedTransaction: Transaction = Transaction()
     
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.dateChecked)]) var transactions: FetchedResults<Transaction>
+    @FetchRequest var transactions: FetchedResults<Transaction>
     
     @State private var selectedTransactions = Set<Transaction.ID>()
     
@@ -28,10 +29,20 @@ struct AccountTransactionsListingView: View {
         }
     }
     
+    init(account: Account) {
+        _transactions = FetchRequest<Transaction>(sortDescriptors: [SortDescriptor(\.dateChecked)],
+                                                  predicate: NSPredicate(format: "%K == %@",
+                                                                         #keyPath(Transaction.account),
+                                                                         account))
+    }
+    
     var body: some View {
+        
+        
         VStack {
+            
             Table(transactions, selection: $selectedTransactions) {
- 
+                
                 TableColumn("Date") { transaction in
                     Text(transaction.transactionDate, formatter: dateFormatter)
                         .foregroundColor(transaction.transactionStatus.statusColor)
@@ -74,7 +85,17 @@ struct AccountTransactionsListingView: View {
                 },
                        label: { Text("plus") })
                 Spacer()
-                Button(action: { showingTransactionSheetView.toggle() },
+                Button(action: {
+                    
+                    let t = Transaction(context: dataController.container.viewContext)
+                    t.account = dataController.selectedAccount
+                    t.transactionDate = Date()
+                    t.transactionTitle = "Test"
+                    dataController.save()
+                    selectedTransactions = []
+                    selectedTransactions.insert(t.id)
+                    editedTransaction = t
+                    showingTransactionSheetView.toggle() },
                        label: { Image(systemName: "plus")})
             }
             .padding()
@@ -82,9 +103,10 @@ struct AccountTransactionsListingView: View {
             
             .sheet(isPresented: $showingTransactionSheetView,
                    content: {
-                TransactionDetailSheetView(showing: $showingTransactionSheetView,
-                                           editedTransaction: Transaction(context: dataController.container.viewContext)) }
-            )
+                    TransactionDetailSheetView(showing: $showingTransactionSheetView, editedTransaction: $editedTransaction)
+            
+                
+            })
             
             .alert(isPresented:$showingDeleteAlert) {
                 Alert(
@@ -92,7 +114,7 @@ struct AccountTransactionsListingView: View {
                     message: Text("There is no undo"),
                     primaryButton: .destructive(Text("Delete")) {
                         for id in selectedTransactions {
-                            guard let t = transactions.first(where: {$0.id == id}) else { print ("erri")
+                            guard let t = transactions.first(where: {$0.id == id}) else { print ("error on delete transaction!")
                                 return }
                             managedObjectContext.delete(t)
                             print("Delete")
@@ -105,13 +127,11 @@ struct AccountTransactionsListingView: View {
             }
         }
     }
-    
-  
 }
 
 struct AccountTransactionsListingView_Previews: PreviewProvider {
     static var previews: some View {
-        AccountTransactionsListingView()
+        AccountTransactionsListingView(account: Account())
             .environmentObject(DataController())
     }
 }

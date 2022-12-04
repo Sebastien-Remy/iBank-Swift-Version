@@ -13,8 +13,9 @@ struct TransactionDetailSheetView: View {
     @EnvironmentObject var dataController: DataController
     
     @Binding var showing: Bool
-     
-    @State var editedTransaction: Transaction
+    
+    
+    @Binding var editedTransaction: Transaction
     
     private var dateFormatter: DateFormatter {
         get {
@@ -24,6 +25,7 @@ struct TransactionDetailSheetView: View {
             return formatter
         }
     }
+
     
     var body: some View {
         
@@ -36,35 +38,27 @@ struct TransactionDetailSheetView: View {
                 Text(editedTransaction.transactionCredit, format: .currency(code: Locale.current.currency?.identifier ?? ""))
             }
             HStack {
-                Button(action: {
-                    showing.toggle()
-                }) {
-                    Text("Cancel")
-                }
+                Spacer()
+
                 Button(action: {
                     dataController.save()
                     showing.toggle()
                 }) {
-                    Text("Ok")
+                    Text("Dismiss")
                 }
             }
         }
         .frame(width: 200, height: 200)
+        .padding()
     }
     
 }
 
 struct TransactionDetailSheetView_Previews: PreviewProvider {
-    
+
     static var previews: some View {
         TransactionDetailSheetView(showing: .constant(true),
-                                   editedTransaction: Transaction(context: DataController().container.viewContext,
-                                                                                            date: Date(),
-                                                                                            dateChecked: Date(),
-                                                                                            title: "Test Title",
-                                                                                            subTitle: "Test subTitle",
-                                                                                            statusInt: 0
-                                                                                           ))
+                                   editedTransaction: .constant(Transaction()) )
             .environmentObject(DataController())
     }
 }
