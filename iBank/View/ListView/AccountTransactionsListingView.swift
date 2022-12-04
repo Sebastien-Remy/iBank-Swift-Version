@@ -14,11 +14,11 @@ struct AccountTransactionsListingView: View {
     
     @State private var showingTransactionSheetView = false
     @State private var showingDeleteAlert = false
-    @State private var editedTransaction: Transaction = Transaction()
+    @State private var editedTransaction: TransactionMain = TransactionMain()
     
-    @FetchRequest var transactions: FetchedResults<Transaction>
+    @FetchRequest var transactions: FetchedResults<TransactionMain>
     
-    @State private var selectedTransactions = Set<Transaction.ID>()
+    @State private var selectedTransactions = Set<TransactionMain.ID>()
     
     private var dateFormatter: DateFormatter {
         get {
@@ -30,9 +30,9 @@ struct AccountTransactionsListingView: View {
     }
     
     init(account: Account) {
-        _transactions = FetchRequest<Transaction>(sortDescriptors: [SortDescriptor(\.dateChecked)],
+        _transactions = FetchRequest<TransactionMain>(sortDescriptors: [SortDescriptor(\.dateChecked)],
                                                   predicate: NSPredicate(format: "%K == %@",
-                                                                         #keyPath(Transaction.account),
+                                                                         #keyPath(TransactionMain.account),
                                                                          account))
     }
     
@@ -75,7 +75,7 @@ struct AccountTransactionsListingView: View {
                 Text("Add transaction")
                 
                 Button(action: {
-                    let t = Transaction(context: dataController.container.viewContext)
+                    let t = TransactionMain(context: dataController.container.viewContext)
                     t.account = dataController.selectedAccount
                     t.transactionDate = Date()
                     t.transactionTitle = "Test"
@@ -87,7 +87,7 @@ struct AccountTransactionsListingView: View {
                 Spacer()
                 Button(action: {
                     
-                    let t = Transaction(context: dataController.container.viewContext)
+                    let t = TransactionMain(context: dataController.container.viewContext)
                     t.account = dataController.selectedAccount
                     t.transactionDate = Date()
                     t.transactionTitle = "Test"

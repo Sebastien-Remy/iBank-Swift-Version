@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-extension Transaction {
+extension TransactionMain {
     
     convenience init(context: NSManagedObjectContext,
                      date: Date,
@@ -76,8 +76,8 @@ extension Transaction {
     
     var transactionBalance: Double {
         get {
-            let transactionDetails = details as? Set<TransactionDetail> ?? []
-            return transactionDetails.reduce(.zero, {$0 + $1.amount})
+            let transactionDetailsArray = transactionDetails as? Set<TransactionDetail> ?? []
+            return transactionDetailsArray.reduce(.zero, {$0 + $1.amount})
         }
     }
     

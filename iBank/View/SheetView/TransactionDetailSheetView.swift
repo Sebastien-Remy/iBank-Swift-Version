@@ -15,7 +15,7 @@ struct TransactionDetailSheetView: View {
     @Binding var showing: Bool
     
     
-    @Binding var editedTransaction: Transaction
+    @Binding var editedTransaction: TransactionMain
     
     private var dateFormatter: DateFormatter {
         get {
@@ -58,7 +58,7 @@ struct TransactionDetailSheetView_Previews: PreviewProvider {
 
     static var previews: some View {
         TransactionDetailSheetView(showing: .constant(true),
-                                   editedTransaction: .constant(Transaction()) )
+                                   editedTransaction: .constant(TransactionMain()) )
             .environmentObject(DataController())
     }
 }

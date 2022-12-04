@@ -50,8 +50,8 @@ extension Account {
         }
     }
     
-    var accountTransactions: [Transaction] {
-        let set = transactions as? Set<Transaction> ?? []
+    var accountTransactions: [TransactionMain] {
+        let set = transactions as? Set<TransactionMain> ?? []
         return set.sorted {
             $0.transactionDate < $1.transactionDate
         }

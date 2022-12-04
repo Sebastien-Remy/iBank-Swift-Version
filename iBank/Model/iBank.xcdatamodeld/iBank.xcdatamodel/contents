@@ -8,7 +8,7 @@
         <attribute name="originalBalance" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="accountGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AccountGroup" inverseName="account" inverseEntity="AccountGroup"/>
         <relationship name="bankStatements" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BankStatement" inverseName="account" inverseEntity="BankStatement"/>
-        <relationship name="transactions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Transaction" inverseName="account" inverseEntity="Transaction"/>
+        <relationship name="transactions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TransactionMain" inverseName="account" inverseEntity="TransactionMain"/>
     </entity>
     <entity name="AccountGroup" representedClassName="AccountGroup" syncable="YES" codeGenerationType="class">
         <attribute name="colorAsHex" optional="YES" attributeType="String" valueTransformerName="ColorTransformer" customClassName="NSColor"/>
@@ -42,16 +42,6 @@
         <attribute name="notes" optional="YES" attributeType="String" minValueString="0" maxValueString="1024"/>
         <relationship name="transactions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TransactionDetail" inverseName="third" inverseEntity="TransactionDetail"/>
     </entity>
-    <entity name="Transaction" representedClassName="Transaction" syncable="YES" codeGenerationType="class">
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="dateChecked" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="notes" optional="YES" attributeType="String"/>
-        <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="subTitle" optional="YES" attributeType="String"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="account" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="transactions" inverseEntity="Account"/>
-        <relationship name="details" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TransactionDetail" inverseName="mainTransaction" inverseEntity="TransactionDetail"/>
-    </entity>
     <entity name="TransactionDetail" representedClassName="TransactionDetail" syncable="YES" codeGenerationType="class">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="detailDate" attributeType="Date" usesScalarValueType="NO"/>
@@ -59,8 +49,18 @@
         <attribute name="subtitle" optional="YES" attributeType="String" minValueString="0" maxValueString="256" defaultValueString=""/>
         <attribute name="title" attributeType="String" minValueString="0" maxValueString="256"/>
         <relationship name="category" maxCount="1" deletionRule="Deny" destinationEntity="Category" inverseName="transactions" inverseEntity="Category"/>
-        <relationship name="mainTransaction" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Transaction" inverseName="details" inverseEntity="Transaction"/>
         <relationship name="project" maxCount="1" deletionRule="Deny" destinationEntity="Project" inverseName="transactions" inverseEntity="Project"/>
         <relationship name="third" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="Third" inverseName="transactions" inverseEntity="Third"/>
+        <relationship name="transactionMain" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TransactionMain" inverseName="transactionDetails" inverseEntity="TransactionMain"/>
+    </entity>
+    <entity name="TransactionMain" representedClassName="TransactionMain" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dateChecked" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="subTitle" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="account" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="transactions" inverseEntity="Account"/>
+        <relationship name="transactionDetails" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TransactionDetail" inverseName="transactionMain" inverseEntity="TransactionDetail"/>
     </entity>
 </model>
