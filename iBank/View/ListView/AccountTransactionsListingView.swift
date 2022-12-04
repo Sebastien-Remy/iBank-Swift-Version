@@ -14,7 +14,7 @@ struct AccountTransactionsListingView: View {
     
     @State private var showingTransactionSheetView = false
     @State private var showingDeleteAlert = false
-    @State private var editedTransaction: TransactionMain = TransactionMain()
+    @State private var editedTransaction: TransactionMain = TransactionMain(context: NSManagedObjectContext(.privateQueue))
     
     @FetchRequest var transactions: FetchedResults<TransactionMain>
     
