@@ -19,7 +19,7 @@ struct ContentView: View {
             
            BalanceView()
             
-            TransactionListingView()
+            AccountTransactionsListingView()
             
 //            List(transactions, selection: $dataController.selectedTransaction) { transaction in
 //                HStack {

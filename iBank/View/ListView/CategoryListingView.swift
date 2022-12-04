@@ -43,7 +43,6 @@ struct CategoryListingView: View {
         // Create category
         let category = Category(context: managedObjectContext)
         category.categoryName = "New Category"
-      
         
         // Save
         dataController.save()

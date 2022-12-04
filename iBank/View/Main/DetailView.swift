@@ -11,6 +11,8 @@ struct DetailView: View {
     
     @EnvironmentObject var dataController: DataController
     
+    @State private var isCategoryExpanded = false
+    
     var body: some View {
         VStack {
             switch dataController.selectedView {
@@ -23,8 +25,11 @@ struct DetailView: View {
                 }
             case .category:
                 if let selectedCategory = dataController.selectedCategory {
-                    CategoryDetailView(category: selectedCategory)
-                        .padding()
+                    
+                    DisclosureGroup("Category", isExpanded: $isCategoryExpanded) {
+                        CategoryDetailView(category: selectedCategory)
+                    }
+                    .padding()
                 } else {
                     Text("Please select a category")
                 }

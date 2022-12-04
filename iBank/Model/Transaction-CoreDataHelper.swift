@@ -6,16 +6,37 @@
 //
 
 import Foundation
+import CoreData
 
 extension Transaction {
     
-   
+    convenience init(context: NSManagedObjectContext,
+                     date: Date,
+                     dateChecked: Date,
+                     title: String,
+                     subTitle: String,
+                     statusInt: Int) {
+        self.init(context: context)
+        self.date = date
+        self.dateChecked = dateChecked
+        self.title = title
+        self.subTitle = subTitle
+        self.status = Int16(statusInt)
+    }
     
     var transactionDate: Date {
         get { date ?? Date() }
         set {
             guard managedObjectContext  != nil else { return }
             date = newValue
+        }
+    }
+    
+    var transactionDateChecked: Date {
+        get { dateChecked ?? Date() }
+        set {
+            guard managedObjectContext  != nil else { return }
+            dateChecked = newValue
         }
     }
     
@@ -27,14 +48,47 @@ extension Transaction {
         }
     }
     
-    var transactionStatus: String {
-        get {
-            return TransactionStatus(rawValue: Int(status))?.statusString ?? TransactionStatus.engaged.statusString
-        }
+    var transactionsubTitle: String {
+        get { subTitle ?? "" }
         set {
             guard managedObjectContext  != nil else { return }
+            subTitle = newValue
         }
     }
     
+    var transactionNotes: String {
+        get { notes ?? "" }
+        set {
+            guard managedObjectContext  != nil else { return }
+            notes = newValue
+        }
+    }
+    
+    var transactionStatus: TransactionStatus {
+        get {
+            return TransactionStatus(rawValue: Int(status)) ?? TransactionStatus.planned
+        }
+        set {
+            guard managedObjectContext  != nil else { return }
+            status = Int16(newValue.rawValue)
+        }
+    }
+    
+    var transactionBalance: Double {
+        get {
+            let transactionDetails = details as? Set<TransactionDetail> ?? []
+            return transactionDetails.reduce(.zero, {$0 + $1.amount})
+        }
+    }
+    
+    var transactionDebit: Double {
+        get {
+            return transactionBalance <= 0 ? transactionBalance : 0.0
+        }
+    }
+    
+    var transactionCredit: Double {
+        return transactionBalance >= 0 ? transactionBalance : 0.0
+    }
 
 }

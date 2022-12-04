@@ -32,8 +32,6 @@ struct AccountDetailView: View {
                 
                 // Disable when review deleted
                 .disabled(account.managedObjectContext == nil)
-                
-                
             }
         }
     }
