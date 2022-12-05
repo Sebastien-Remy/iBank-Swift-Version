@@ -31,9 +31,9 @@ struct AccountTransactionsListingView: View {
     
     init(account: Account) {
         _transactions = FetchRequest<TransactionMain>(sortDescriptors: [SortDescriptor(\.dateChecked)],
-                                                  predicate: NSPredicate(format: "%K == %@",
-                                                                         #keyPath(TransactionMain.account),
-                                                                         account))
+                                                      predicate: NSPredicate(format: "%K == %@",
+                                                                             #keyPath(TransactionMain.account),
+                                                                             account))
     }
     
     var body: some View {
@@ -44,46 +44,70 @@ struct AccountTransactionsListingView: View {
             Table(transactions, selection: $selectedTransactions) {
                 
                 TableColumn("Date") { transaction in
-                    Text(transaction.transactionDate, formatter: dateFormatter)
-                        .foregroundColor(transaction.transactionStatus.statusColor)
+                    HStack {
+                        Spacer()
+                        Text(transaction.transactionDate, formatter: dateFormatter)
+                            .foregroundColor(transaction.transactionStatus.statusColor)
+                    }
                 }
+                .width(min: 50, ideal: 60)
                 
-                TableColumn("Date") { transaction in
-                    Text(transaction.transactionDate, formatter: dateFormatter)
-                        .foregroundColor(transaction.transactionStatus.statusColor)
-                }
+                
                 TableColumn("Checked") { transaction in
-                    Text(transaction.transactionDateChecked, formatter: dateFormatter)
-                        .foregroundColor(transaction.transactionStatus.statusColor)
+                    HStack {
+                        Spacer()
+                        Text(transaction.transactionDateChecked, formatter: dateFormatter)
+                            .foregroundColor(transaction.transactionStatus.statusColor)
+                    }
                 }
+                .width(min: 50, ideal: 60)
+                
                 TableColumn("Title") { transaction in
                     Text(transaction.transactionTitle)
                         .foregroundColor(transaction.transactionStatus.statusColor)
                 }
+                .width(min: 75, ideal: 150)
+                
                 TableColumn("Debit") { transaction in
-                    Text(transaction.transactionDebit, format: .currency(code: Locale.current.currency?.identifier ?? ""))
-                        .foregroundColor(transaction.transactionStatus.statusColor)
+                    HStack {
+                        Spacer()
+                        Text(transaction.transactionDebit, format: .currency(code: Locale.current.currency?.identifier ?? ""))
+                            .foregroundColor(transaction.transactionStatus.statusColor)
+                    }
                 }
+                .width(min: 50, ideal: 75)
+                
                 TableColumn("Crédit") { transaction in
-                    Text(transaction.transactionCredit, format: .currency(code: Locale.current.currency?.identifier ?? ""))
-                        .foregroundColor(transaction.transactionStatus.statusColor)
+                    HStack {
+                        Spacer()
+                        Text(transaction.transactionCredit, format: .currency(code: Locale.current.currency?.identifier ?? ""))
+                            .foregroundColor(transaction.transactionStatus.statusColor)
+                    }
+                    
                 }
+                .width(min: 50, ideal: 75)
+                
+                TableColumn("") { transaction in
+                    HStack {
+                        Spacer()
+                        Button(action: { },
+                               label: { Image(systemName: "pencil")})
+                        Spacer()
+                        Button(action: {
+                            managedObjectContext.delete(transaction) },
+                               label: { Image(systemName: "trash")})
+                        Spacer()
+                    }
+                }
+                .width(min: 30, ideal: 30)
+                
             }
             .onDeleteCommand(perform: { showingDeleteAlert.toggle() } )
+            
             
             HStack {
                 Text("Add transaction")
                 
-                Button(action: {
-                    let t = TransactionMain(context: dataController.container.viewContext)
-                    t.account = dataController.selectedAccount
-                    t.transactionDate = Date()
-                    t.transactionTitle = "Test"
-                    dataController.save()
-                    selectedTransactions = []
-                    selectedTransactions.insert(t.id)
-                },
-                       label: { Text("plus") })
                 Spacer()
                 Button(action: {
                     
@@ -103,8 +127,8 @@ struct AccountTransactionsListingView: View {
             
             .sheet(isPresented: $showingTransactionSheetView,
                    content: {
-                    TransactionDetailSheetView(showing: $showingTransactionSheetView, editedTransaction: $editedTransaction)
-            
+                TransactionDetailSheetView(showing: $showingTransactionSheetView, editedTransaction: $editedTransaction)
+                
                 
             })
             
@@ -117,7 +141,6 @@ struct AccountTransactionsListingView: View {
                             guard let t = transactions.first(where: {$0.id == id}) else { print ("error on delete transaction!")
                                 return }
                             managedObjectContext.delete(t)
-                            print("Delete")
                         }
                         selectedTransactions = []
                         dataController.save()
