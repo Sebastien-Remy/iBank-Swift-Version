@@ -19,6 +19,7 @@ struct AccountTransactionsListingView: View {
     @FetchRequest var transactions: FetchedResults<TransactionMain>
     
     @State private var selectedTransactions = Set<TransactionMain.ID>()
+    @State private var transactionMainToDelete: TransactionMain.ID? = nil
     
     private var dateFormatter: DateFormatter {
         get {
@@ -94,13 +95,18 @@ struct AccountTransactionsListingView: View {
                                label: { Image(systemName: "pencil")})
                         Spacer()
                         Button(action: {
-                            managedObjectContext.delete(transaction) },
+                            transactionMainToDelete = transaction.id
+                            showingDeleteAlert.toggle()
+                        },
                                label: { Image(systemName: "trash")})
                         Spacer()
                     }
                 }
                 .width(min: 30, ideal: 30)
                 
+            }
+            .onTapGesture(count: 2) {
+                print(selectedTransactions)
             }
             .onDeleteCommand(perform: { showingDeleteAlert.toggle() } )
             
@@ -119,8 +125,12 @@ struct AccountTransactionsListingView: View {
                     selectedTransactions = []
                     selectedTransactions.insert(t.id)
                     editedTransaction = t
-                    showingTransactionSheetView.toggle() },
-                       label: { Image(systemName: "plus")})
+                    showingTransactionSheetView.toggle()
+                    
+                },
+                       label: { Image(systemName: "plus")
+                    
+                })
             }
             .padding()
             
@@ -133,21 +143,58 @@ struct AccountTransactionsListingView: View {
             })
             
             .alert(isPresented:$showingDeleteAlert) {
-                Alert(
-                    title: Text("Are you sure you want to delete this \(selectedTransactions.count) transactions ?"),
+                
+                // Construct alert title
+                var alertTitle = "Are you sure you want to delete "
+                if transactionMainToDelete != nil {
+                    // Delete by clicking row button
+                    alertTitle += "this transaction"
+                } else {
+                    // Delete selection by press DEL on selection
+                    alertTitle += "Are you sure you want to delete \(selectedTransactions.count) transaction"
+                    if selectedTransactions.count > 1 { alertTitle += "s" }
+                }
+                alertTitle += "?"
+                
+                return Alert(
+                    title: Text(alertTitle),
                     message: Text("There is no undo"),
                     primaryButton: .destructive(Text("Delete")) {
-                        for id in selectedTransactions {
-                            guard let t = transactions.first(where: {$0.id == id}) else { print ("error on delete transaction!")
-                                return }
+                        
+                        if transactionMainToDelete == nil {
+                            // Delete selection by press DEL on selection
+                            for id in selectedTransactions {
+                                guard let t = transactions.first(where: {$0.id == id}) else { print ("error on delete transaction!")
+                                    return }
+                                managedObjectContext.delete(t)
+                            }
+                            
+                            // Clear selection
+                            selectedTransactions = []
+                            
+                        } else {
+                            // Delete by clicking row button
+                            
+                            guard let t = transactions.first(where: {$0.id == transactionMainToDelete}) else { return }
                             managedObjectContext.delete(t)
+                            
+                            // Remove from selection
+                            selectedTransactions.remove(t.id)
+                            
+                            // Clear reference
+                            transactionMainToDelete = nil
                         }
-                        selectedTransactions = []
+                        
+                        // Save
                         dataController.save()
                     },
-                    secondaryButton: .cancel()
+                    secondaryButton: .cancel() {
+                        // Clear reference
+                        transactionMainToDelete = nil
+                    }
                 )
             }
+            
         }
     }
 }
