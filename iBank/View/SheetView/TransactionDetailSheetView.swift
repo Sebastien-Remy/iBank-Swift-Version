@@ -12,9 +12,7 @@ struct TransactionDetailSheetView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @EnvironmentObject var dataController: DataController
     
-    @Binding var showing: Bool
-    
-    
+    @Binding var showing: Bool  
     @Binding var editedTransaction: TransactionMain
     
     private var dateFormatter: DateFormatter {
@@ -25,17 +23,32 @@ struct TransactionDetailSheetView: View {
             return formatter
         }
     }
-
+    
+    private var currencyFormatter: NumberFormatter{
+        get {
+            let formatter = NumberFormatter()
+            formatter.currencyCode = Locale.current.currency?.identifier ?? ""
+            return formatter
+        }
+    }
     
     var body: some View {
         
         Form {
             
-            TextField("Title", text: $editedTransaction.transactionTitle)
-            TextField("Subtitle", text: $editedTransaction.transactionsubTitle)
+            TextField("Title:", text: $editedTransaction.transactionTitle)
+            TextField("Subtitle:", text: $editedTransaction.transactionsubTitle)
+            TextField("amount:",
+                      value: $editedTransaction.mainTransactionDetail.amount,
+                      formatter: currencyFormatter
+            )
+         
+            
             HStack {
-                Text(editedTransaction.transactionDebit, format: .currency(code: Locale.current.currency?.identifier ?? ""))
-                Text(editedTransaction.transactionCredit, format: .currency(code: Locale.current.currency?.identifier ?? ""))
+                Text(editedTransaction.transactionDebit,
+                     format: .currency(code: Locale.current.currency?.identifier ?? ""))
+                Text(editedTransaction.transactionCredit,
+                     format: .currency(code: Locale.current.currency?.identifier ?? ""))
             }
             HStack {
                 Spacer()
@@ -57,8 +70,9 @@ struct TransactionDetailSheetView: View {
 struct TransactionDetailSheetView_Previews: PreviewProvider {
 
     static var previews: some View {
+        
         TransactionDetailSheetView(showing: .constant(true),
-                                   editedTransaction: .constant(TransactionMain()) )
+                                   editedTransaction: .constant(TransactionMain(context: DataController().container.viewContext)) )
             .environmentObject(DataController())
     }
 }

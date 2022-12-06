@@ -40,7 +40,11 @@ class DataController: ObservableObject {
     
     func save() {
         guard container.viewContext.hasChanges else { return }
-        try? container.viewContext.save()
+        do {
+            try container.viewContext.save()
+        } catch let e as NSError {
+            fatalError("Error in save project, \(e)")
+        }
     }
     
     func enqueueSave(_ change: Any) {

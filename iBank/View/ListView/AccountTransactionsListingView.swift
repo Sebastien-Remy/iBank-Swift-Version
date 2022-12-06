@@ -117,13 +117,27 @@ struct AccountTransactionsListingView: View {
                 Spacer()
                 Button(action: {
                     
+                    // Create Main
                     let t = TransactionMain(context: dataController.container.viewContext)
                     t.account = dataController.selectedAccount
                     t.transactionDate = Date()
                     t.transactionTitle = "Test"
+                    
+                    // Create Detail
+                    let d = TransactionDetail(context: dataController.container.viewContext)
+                    d.detailDate = t.transactionDate
+                    
+                    // Add detail to main
+                    t.transactionDetails = NSSet(object: d)
+                    
+                    // Save
                     dataController.save()
+                    
+                    // Select
                     selectedTransactions = []
                     selectedTransactions.insert(t.id)
+                    
+                    // Show new transaction in sheet window
                     editedTransaction = t
                     showingTransactionSheetView.toggle()
                     
@@ -137,9 +151,8 @@ struct AccountTransactionsListingView: View {
             
             .sheet(isPresented: $showingTransactionSheetView,
                    content: {
-                TransactionDetailSheetView(showing: $showingTransactionSheetView, editedTransaction: $editedTransaction)
-                
-                
+                TransactionDetailSheetView(showing: $showingTransactionSheetView,
+                                           editedTransaction: $editedTransaction)
             })
             
             .alert(isPresented:$showingDeleteAlert) {

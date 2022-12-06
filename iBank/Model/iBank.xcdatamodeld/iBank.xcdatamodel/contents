@@ -44,14 +44,14 @@
     </entity>
     <entity name="TransactionDetail" representedClassName="TransactionDetail" syncable="YES" codeGenerationType="class">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="detailDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="detailDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="notes" optional="YES" attributeType="String" minValueString="0" maxValueString="1024"/>
         <attribute name="subtitle" optional="YES" attributeType="String" minValueString="0" maxValueString="256" defaultValueString=""/>
-        <attribute name="title" attributeType="String" minValueString="0" maxValueString="256"/>
-        <relationship name="category" maxCount="1" deletionRule="Deny" destinationEntity="Category" inverseName="transactions" inverseEntity="Category"/>
-        <relationship name="project" maxCount="1" deletionRule="Deny" destinationEntity="Project" inverseName="transactions" inverseEntity="Project"/>
+        <attribute name="title" optional="YES" attributeType="String" minValueString="0" maxValueString="256"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="Category" inverseName="transactions" inverseEntity="Category"/>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="Project" inverseName="transactions" inverseEntity="Project"/>
         <relationship name="third" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="Third" inverseName="transactions" inverseEntity="Third"/>
-        <relationship name="transactionMain" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TransactionMain" inverseName="transactionDetails" inverseEntity="TransactionMain"/>
+        <relationship name="transactionMain" maxCount="1" deletionRule="Nullify" destinationEntity="TransactionMain" inverseName="transactionDetails" inverseEntity="TransactionMain"/>
     </entity>
     <entity name="TransactionMain" representedClassName="TransactionMain" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -61,6 +61,6 @@
         <attribute name="subTitle" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="account" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="transactions" inverseEntity="Account"/>
-        <relationship name="transactionDetails" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TransactionDetail" inverseName="transactionMain" inverseEntity="TransactionDetail"/>
+        <relationship name="transactionDetails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TransactionDetail" inverseName="transactionMain" inverseEntity="TransactionDetail"/>
     </entity>
 </model>

@@ -32,6 +32,7 @@
 		966611CB291AC71100A1E7D9 /* ThirdDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966611CA291AC71100A1E7D9 /* ThirdDetailView.swift */; };
 		966611CD291AC7BF00A1E7D9 /* ProjectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966611CC291AC7BF00A1E7D9 /* ProjectDetailView.swift */; };
 		96679D80291D115C005DC61A /* TransactionMain-CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96679D7F291D115C005DC61A /* TransactionMain-CoreDataHelper.swift */; };
+		967D5A35293F54F800F7BB5C /* TransactionDetail-CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967D5A34293F54F800F7BB5C /* TransactionDetail-CoreDataHelper.swift */; };
 		96A26F82291D3BCC00943F12 /* AccountTransactionsListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A26F81291D3BCC00943F12 /* AccountTransactionsListingView.swift */; };
 		96C62D58292B55CF001578D2 /* ColorToHexString-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C62D57292B55CF001578D2 /* ColorToHexString-Extension.swift */; };
 		96C62D7B292B7E14001578D2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C62D7A292B7E14001578D2 /* Constants.swift */; };
@@ -69,6 +70,7 @@
 		966611CA291AC71100A1E7D9 /* ThirdDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdDetailView.swift; sourceTree = "<group>"; };
 		966611CC291AC7BF00A1E7D9 /* ProjectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailView.swift; sourceTree = "<group>"; };
 		96679D7F291D115C005DC61A /* TransactionMain-CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionMain-CoreDataHelper.swift"; sourceTree = "<group>"; };
+		967D5A34293F54F800F7BB5C /* TransactionDetail-CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TransactionDetail-CoreDataHelper.swift"; sourceTree = "<group>"; };
 		96A26F81291D3BCC00943F12 /* AccountTransactionsListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTransactionsListingView.swift; sourceTree = "<group>"; };
 		96C62D57292B55CF001578D2 /* ColorToHexString-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorToHexString-Extension.swift"; sourceTree = "<group>"; };
 		96C62D7A292B7E14001578D2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				966611C2291AC3E100A1E7D9 /* Project-CoreDataHelper.swift */,
 				966611C0291AC3CD00A1E7D9 /* Third-CoreDataHelpers.swift */,
 				96679D7F291D115C005DC61A /* TransactionMain-CoreDataHelper.swift */,
+				967D5A34293F54F800F7BB5C /* TransactionDetail-CoreDataHelper.swift */,
 				966611B4291A5A1D00A1E7D9 /* DataController.swift */,
 			);
 			path = Model;
@@ -292,6 +295,7 @@
 			files = (
 				966611C1291AC3CD00A1E7D9 /* Third-CoreDataHelpers.swift in Sources */,
 				96CE3A26292B4A0400A9E459 /* ColorFromHex-Extension.swift in Sources */,
+				967D5A35293F54F800F7BB5C /* TransactionDetail-CoreDataHelper.swift in Sources */,
 				966611C7291AC45400A1E7D9 /* ProjectListingView.swift in Sources */,
 				966611C3291AC3E100A1E7D9 /* Project-CoreDataHelper.swift in Sources */,
 				966611B5291A5A1D00A1E7D9 /* DataController.swift in Sources */,

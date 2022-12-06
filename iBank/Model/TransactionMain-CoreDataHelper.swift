@@ -91,4 +91,22 @@ extension TransactionMain {
         return transactionBalance >= 0 ? transactionBalance : 0.0
     }
 
+    var transactionDetailsArray: [TransactionDetail] {
+        let a = transactionDetails as? Set<TransactionDetail> ?? []
+        return a.sorted { $0.transactionDetailDate < $1.transactionDetailDate }
+    }
+    
+    var mainTransactionDetail: TransactionDetail {
+        get {
+            if transactionDetailsArray.count == 0 {
+                fatalError("Transaction must have at least one transaction detail.")
+            }
+            return transactionDetailsArray[0]
+        }
+        set {
+            guard managedObjectContext  != nil else { return }
+            transactionDetails = NSSet(object: newValue)
+        }
+    }
+    
 }
