@@ -105,38 +105,38 @@ struct TransactionDetailView: View {
     
     var body: some View {
         VStack {
-            
-            if (accounts.count > 0) {
-                Picker("Account", selection: $transactionSelectedAccount) {
-                    ForEach(accounts) { (account: Account) in
-                        Text(account.accountName).tag(account)
+            Group {
+                if (accounts.count > 0) {
+                    Picker("Account", selection: $transactionSelectedAccount) {
+                        ForEach(accounts) { (account: Account) in
+                            Text(account.accountName).tag(account)
+                        }
+                    }
+                } else {
+                    Text("There is not account in iBank!")
+                }
+                
+                if (categories.count > 0) {
+                    Picker("Category", selection: $transactionSelectedCategory) {
+                        ForEach(categories) { (category: Category) in
+                            Text(category.categoryName).tag(category)
+                        }
                     }
                 }
-            } else {
-                Text("There is not account in iBank!")
-            }
-
-            if (categories.count > 0) {
-                Picker("Category", selection: $transactionSelectedCategory) {
-                    ForEach(categories) { (category: Category) in
-                        Text(category.categoryName).tag(category)
+                else {
+                    Text("There is not category in iBank!")
+                }
+                
+                if (thirds.count > 0) {
+                    Picker("Third", selection: $transactionSelectedThird) {
+                        ForEach(thirds) { (third: Third) in
+                            Text(third.thirdName).tag(third)
+                        }
                     }
+                } else {
+                    Text("There is not third in iBank!")
                 }
             }
-            else {
-                Text("There is not category in iBank!")
-            }
-
-//            if (thirds.count > 0) {
-//                Picker("Third", selection: $transactionSelectedThird) {
-//                    ForEach(thirds) { (third: Third) in
-//                        Text(third.thirdName).tag(third)
-//                    }
-//                }
-//            } else {
-//                Text("There is not third in iBank!")
-//            }
-
             if (projects.count > 0) {
                 Picker("Project", selection: $transactionSelectedProject) {
                     ForEach(projects) { (project : Project) in
@@ -197,11 +197,11 @@ struct TransactionDetailView: View {
 }
 
 
-//
-//struct TransactionDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TransactionDetailView(moc: Environment(\.managedObjectContext))
-//
-//            .environmentObject(DataController())
-//    }
-//}
+
+struct TransactionDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        TransactionDetailView(moc: DataController().container.viewContext)
+
+            .environmentObject(DataController())
+    }
+}
